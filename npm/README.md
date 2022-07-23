@@ -11,6 +11,7 @@ yarn add --dev tsconfig-templates
 - `getTsConfigNames`  - Lists tsconfigs display names.
 - `getTsConfigs` - Lists tsconfigs filename and display title
 - `parseTsConfigFile(tsconfigFilename)` - Parse tsconfig file content.
+- `copyTsConfigFile(tsconfigFile: string, dest= process.cwd(), filename = 'tsconfig.json')` - copies the specified tsconfig file to destination with the specified filename.
 
 
 ```ts

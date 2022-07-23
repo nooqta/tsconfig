@@ -23,7 +23,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.parseTsConfigFile = exports.getTsConfigs = exports.getTsConfigNames = exports.getTsConfigFiles = void 0;
+exports.copyTsConfigFile = exports.parseTsConfigFile = exports.getTsConfigs = exports.getTsConfigNames = exports.getTsConfigFiles = void 0;
 const fs = __importStar(require("fs"));
 const path_1 = require("path");
 const baseDir = (0, path_1.join)(__dirname, 'bases');
@@ -39,3 +39,8 @@ exports.getTsConfigs = getTsConfigs;
 // parse tsconfig file content
 const parseTsConfigFile = (tsconfigFile) => JSON.parse(fs.readFileSync((0, path_1.join)(baseDir, tsconfigFile), 'utf8'));
 exports.parseTsConfigFile = parseTsConfigFile;
+const copyTsConfigFile = (tsconfigFile, dest = process.cwd(), filename = 'tsconfig.json') => {
+    const tsconfigFilePath = (0, path_1.join)(baseDir, tsconfigFile);
+    fs.copyFileSync(tsconfigFilePath, (0, path_1.join)(dest, filename));
+};
+exports.copyTsConfigFile = copyTsConfigFile;

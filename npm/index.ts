@@ -14,9 +14,15 @@ const getTsConfigs = () => getTsConfigFiles().map((file: any) => ({filename: fil
 // parse tsconfig file content
 const parseTsConfigFile = (tsconfigFile: string) => JSON.parse(fs.readFileSync(join(baseDir, tsconfigFile), 'utf8'));
 
+const copyTsConfigFile = (tsconfigFile: string, dest= process.cwd(), filename = 'tsconfig.json') => {
+    const tsconfigFilePath = join(baseDir, tsconfigFile);
+    fs.copyFileSync(tsconfigFilePath, join(dest, filename));
+}
+
 export {
     getTsConfigFiles,
     getTsConfigNames,
     getTsConfigs,
-    parseTsConfigFile
+    parseTsConfigFile,
+    copyTsConfigFile
 }
