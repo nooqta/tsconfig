@@ -28,7 +28,7 @@ const fs = __importStar(require("fs"));
 const path_1 = require("path");
 const baseDir = (0, path_1.join)(__dirname, 'bases');
 // List all tsconfig files
-const getTsConfigFiles = () => fs.readdirSync('./bases').filter((file) => file.match(/.*\.json$/));
+const getTsConfigFiles = () => fs.readdirSync(baseDir).filter((file) => file.match(/.*\.json$/));
 exports.getTsConfigFiles = getTsConfigFiles;
 // get tsconfigs names
 const getTsConfigNames = () => getTsConfigFiles().map((file) => file.replace(".json", "").replace(".combined", ""));
@@ -40,7 +40,10 @@ exports.getTsConfigs = getTsConfigs;
 const parseTsConfigFile = (tsconfigFile) => JSON.parse(fs.readFileSync((0, path_1.join)(baseDir, tsconfigFile), 'utf8'));
 exports.parseTsConfigFile = parseTsConfigFile;
 const copyTsConfigFile = (tsconfigFile, dest = process.cwd(), filename = 'tsconfig.json') => {
-    const tsconfigFilePath = (0, path_1.join)(baseDir, tsconfigFile);
+    let tsconfigFilePath = (0, path_1.join)(baseDir, tsconfigFile);
+    if (!fs.existsSync(tsconfigFilePath)) {
+        tsconfigFilePath = (0, path_1.join)(baseDir, 'recommended.json');
+    }
     fs.copyFileSync(tsconfigFilePath, (0, path_1.join)(dest, filename));
 };
 exports.copyTsConfigFile = copyTsConfigFile;
