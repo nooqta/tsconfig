@@ -23,18 +23,18 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.parseTsConfigFile = exports.getTsConfigs = exports.getTsConfigNames = exports.getTsconfigFiles = void 0;
+exports.parseTsConfigFile = exports.getTsConfigs = exports.getTsConfigNames = exports.getTsConfigFiles = void 0;
 const fs = __importStar(require("fs"));
 const path_1 = require("path");
 const baseDir = (0, path_1.join)(__dirname, 'bases');
 // List all tsconfig files
-const getTsconfigFiles = () => fs.readdirSync('./bases').filter((file) => file.match(/.*\.json$/));
-exports.getTsconfigFiles = getTsconfigFiles;
+const getTsConfigFiles = () => fs.readdirSync('./bases').filter((file) => file.match(/.*\.json$/));
+exports.getTsConfigFiles = getTsConfigFiles;
 // get tsconfigs names
-const getTsConfigNames = () => getTsconfigFiles().map((file) => file.replace(".json", "").replace(".combined", ""));
+const getTsConfigNames = () => getTsConfigFiles().map((file) => file.replace(".json", "").replace(".combined", ""));
 exports.getTsConfigNames = getTsConfigNames;
 // get tsconfigs filename and display title
-const getTsConfigs = () => getTsconfigFiles().map((file) => ({ filename: file, name: file.replace(".json", "").replace(".combined", "") }));
+const getTsConfigs = () => getTsConfigFiles().map((file) => ({ filename: file, name: file.replace(".json", "").replace(".combined", "") }));
 exports.getTsConfigs = getTsConfigs;
 // parse tsconfig file content
 const parseTsConfigFile = (tsconfigFile) => JSON.parse(fs.readFileSync((0, path_1.join)(baseDir, tsconfigFile), 'utf8'));
