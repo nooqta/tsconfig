@@ -44,3 +44,4 @@ const copyTsConfigFile = (tsconfigFile, dest = process.cwd(), filename = 'tsconf
     fs.copyFileSync(tsconfigFilePath, (0, path_1.join)(dest, filename));
 };
 exports.copyTsConfigFile = copyTsConfigFile;
+//# sourceMappingURL=index.js.map
