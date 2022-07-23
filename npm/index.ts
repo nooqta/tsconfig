@@ -3,7 +3,7 @@ import { join } from 'path';
 const baseDir = join(__dirname, 'bases');
 
 // List all tsconfig files
-const getTsConfigFiles = () => fs.readdirSync('./bases').filter((file: any) => file.match(/.*\.json$/));
+const getTsConfigFiles = () => fs.readdirSync(baseDir).filter((file: any) => file.match(/.*\.json$/));
 
 // get tsconfigs names
 const getTsConfigNames = () => getTsConfigFiles().map((file: any) => file.replace(".json", "").replace(".combined", ""));
@@ -15,7 +15,10 @@ const getTsConfigs = () => getTsConfigFiles().map((file: any) => ({filename: fil
 const parseTsConfigFile = (tsconfigFile: string) => JSON.parse(fs.readFileSync(join(baseDir, tsconfigFile), 'utf8'));
 
 const copyTsConfigFile = (tsconfigFile: string, dest= process.cwd(), filename = 'tsconfig.json') => {
-    const tsconfigFilePath = join(baseDir, tsconfigFile);
+    let tsconfigFilePath = join(baseDir, tsconfigFile);
+    if(!fs.existsSync(tsconfigFilePath)) {
+        tsconfigFilePath = join(baseDir, 'recommended.json');
+    }
     fs.copyFileSync(tsconfigFilePath, join(dest, filename));
 }
 
